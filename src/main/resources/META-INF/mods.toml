@@ -1,0 +1,29 @@
+modLoader="javafml"
+loaderVersion="[28,)"
+issueTrackerURL="https://github.com/MrCrayfish/BlockStateChanger/issues"
+
+[[mods]]
+modId="blockstatechanger"
+version="1.0.0"
+displayName="BlockState Changer"
+updateJSONURL="https://raw.githubusercontent.com/MrCrayfish/BlockStateChanger/master/update.json"
+displayURL="https://mrcrayfish.com"
+logoFile=""
+credits=""
+authors="MrCrayfish"
+description='''
+A quick mod that no one will see
+'''
+
+[[dependencies.blockstatechanger]] #optional
+    modId="forge"
+    mandatory=true
+    versionRange="[28,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.blockstatechanger]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.14.4]"
+    ordering="NONE"
+    side="BOTH"
