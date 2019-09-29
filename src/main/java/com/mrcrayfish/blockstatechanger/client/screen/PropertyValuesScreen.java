@@ -65,4 +65,10 @@ public class PropertyValuesScreen extends Screen
         this.blit(guiLeft - this.padding, guiTop + height, 0, 9, 94, this.padding);
         super.render(mouseX, mouseY, partialTicks);
     }
+
+    @Override
+    public boolean isPauseScreen()
+    {
+        return false;
+    }
 }
