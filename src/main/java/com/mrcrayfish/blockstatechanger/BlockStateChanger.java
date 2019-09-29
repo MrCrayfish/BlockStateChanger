@@ -36,7 +36,10 @@ public class BlockStateChanger
         {
             event.setCanceled(true);
             BlockState state = event.getWorld().getBlockState(event.getPos());
-            Minecraft.getInstance().displayGuiScreen(new BlockStatePropertiesScreen(state, event.getPos()));
+            if(state.getProperties().size() > 0)
+            {
+                Minecraft.getInstance().displayGuiScreen(new BlockStatePropertiesScreen(state, event.getPos()));
+            }
         }
     }
 }
