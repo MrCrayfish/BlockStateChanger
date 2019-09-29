@@ -1,6 +1,6 @@
 package com.mrcrayfish.blockstatechanger;
 
-import com.mrcrayfish.blockstatechanger.client.screen.BlockStatePropertiesScreen;
+import com.mrcrayfish.blockstatechanger.client.screen.PropertyScreen;
 import com.mrcrayfish.blockstatechanger.network.PacketHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -38,7 +38,7 @@ public class BlockStateChanger
             BlockState state = event.getWorld().getBlockState(event.getPos());
             if(state.getProperties().size() > 0)
             {
-                Minecraft.getInstance().displayGuiScreen(new BlockStatePropertiesScreen(state, event.getPos()));
+                Minecraft.getInstance().displayGuiScreen(new PropertyScreen(state, event.getPos()));
             }
         }
     }

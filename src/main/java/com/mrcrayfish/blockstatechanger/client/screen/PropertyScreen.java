@@ -1,8 +1,6 @@
 package com.mrcrayfish.blockstatechanger.client.screen;
 
 import com.mrcrayfish.blockstatechanger.Reference;
-import com.mrcrayfish.blockstatechanger.network.PacketHandler;
-import com.mrcrayfish.blockstatechanger.network.message.MessageBlockStateProperty;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
@@ -16,24 +14,22 @@ import net.minecraft.util.math.BlockPos;
 /**
  * Author: MrCrayfish
  */
-public class PropertyValuesScreen extends Screen
+public class PropertyScreen extends Screen
 {
     private static final ResourceLocation GUI_TEXTURE = new ResourceLocation(Reference.MOD_ID, "textures/gui/blockstate_background.png");
 
     private BlockState state;
     private BlockPos pos;
-    private IProperty<?> property;
     private int padding = 7;
     private int xSize = 94;
     private int ySize;
 
-    public PropertyValuesScreen(BlockState state, BlockPos pos, IProperty<?> property)
+    public PropertyScreen(BlockState state, BlockPos pos)
     {
         super(NarratorChatListener.field_216868_a);
         this.state = state;
         this.pos = pos;
-        this.property = property;
-        this.ySize = padding * 2 + property.getAllowedValues().size() * 20 + (property.getAllowedValues().size() - 1) * 4;
+        this.ySize = padding * 2 + state.getProperties().size() * 20 + (state.getProperties().size() - 1) * 4;
     }
 
     @Override
@@ -43,11 +39,10 @@ public class PropertyValuesScreen extends Screen
         int guiTop = (this.height - this.ySize) / 2;
 
         int i = 0;
-        for(Object value : property.getAllowedValues())
+        for(IProperty property : state.getProperties())
         {
-            this.addButton(new Button(guiLeft, guiTop + i * 20 + i * 4, 80, 20, value.toString(), pressable -> {
-                PacketHandler.instance.sendToServer(new MessageBlockStateProperty(this.pos, this.property.getName(), value.toString()));
-                Minecraft.getInstance().displayGuiScreen(null);
+            this.addButton(new Button(guiLeft, guiTop + i * 20 + i * 4, 80, 20, property.getName(), pressable -> {
+                Minecraft.getInstance().displayGuiScreen(new ValueScreen(this.state, this.pos, property));
             }));
             i++;
         }
