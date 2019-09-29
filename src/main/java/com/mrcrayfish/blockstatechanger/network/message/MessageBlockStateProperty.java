@@ -60,7 +60,7 @@ public class MessageBlockStateProperty implements IMessage<MessageBlockStateProp
                     if(property != null)
                     {
                         state = this.parseValue(state, property, message.value);
-                        world.setBlockState(message.pos, state, 2);
+                        world.setBlockState(message.pos, state, 2 | 16);
                     }
                 }
             }
