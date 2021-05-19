@@ -1,10 +1,9 @@
 package com.mrcrayfish.blockstatechanger.network.message;
 
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.state.IProperty;
+import net.minecraft.state.Property;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -56,7 +55,7 @@ public class MessageBlockStateProperty implements IMessage<MessageBlockStateProp
                 if(world.isAreaLoaded(message.pos, 0))
                 {
                     BlockState state = world.getBlockState(message.pos);
-                    IProperty<?> property = state.getProperties().stream().filter(property1 -> property1.getName().equals(message.key)).findFirst().orElse(null);
+                    Property<?> property = state.getProperties().stream().filter(property1 -> property1.getName().equals(message.key)).findFirst().orElse(null);
                     if(property != null)
                     {
                         state = this.parseValue(state, property, message.value);
@@ -67,7 +66,7 @@ public class MessageBlockStateProperty implements IMessage<MessageBlockStateProp
         });
     }
 
-    private <T extends Comparable<T>> BlockState parseValue(BlockState state, IProperty<T> property, String value)
+    private <T extends Comparable<T>> BlockState parseValue(BlockState state, Property<T> property, String value)
     {
         Optional<T> optional = property.parseValue(value);
         if (optional.isPresent()) {
