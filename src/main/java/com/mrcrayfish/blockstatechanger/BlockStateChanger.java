@@ -5,6 +5,7 @@ import com.mrcrayfish.blockstatechanger.network.PacketHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Items;
+import net.minecraft.util.ActionResultType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -35,6 +36,7 @@ public class BlockStateChanger
         if(event.getItemStack().getItem() == Items.DEBUG_STICK)
         {
             event.setCanceled(true);
+            event.setCancellationResult(ActionResultType.SUCCESS);
             BlockState state = event.getWorld().getBlockState(event.getPos());
             if(state.getProperties().size() > 0)
             {
