@@ -3,9 +3,9 @@ package com.mrcrayfish.blockstatechanger.network;
 import com.mrcrayfish.blockstatechanger.Reference;
 import com.mrcrayfish.blockstatechanger.network.message.IMessage;
 import com.mrcrayfish.blockstatechanger.network.message.MessageBlockStateProperty;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.network.NetworkRegistry;
-import net.minecraftforge.fml.network.simple.SimpleChannel;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.simple.SimpleChannel;
 
 /**
  * Author: MrCrayfish

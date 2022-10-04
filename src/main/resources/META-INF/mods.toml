@@ -19,12 +19,12 @@ A quick mod that no one will see
 [[dependencies.blockstatechanger]] #optional
     modId="forge"
     mandatory=true
-    versionRange="[34,)"
+    versionRange="[43,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.blockstatechanger]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.3,1.17)"
+    versionRange="[1.19.2,1.20)"
     ordering="NONE"
     side="BOTH"

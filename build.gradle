@@ -1,54 +1,26 @@
-buildscript {
-    repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
-        jcenter()
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
-    }
+plugins {
+    id 'eclipse'
+    id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '5.+'
+    id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
 }
-apply plugin: 'net.minecraftforge.gradle'
 
-version = '1.0.0-1.16.3'
+version = '1.0.0-1.19.2'
 group = 'com.mrcrayfish'
 archivesBaseName = 'blockstatechanger'
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
-    mappings channel: 'snapshot', version: '20201028-1.16.3'
-   
+    mappings channel: 'official', version: '1.19.2'
+
     runs {
         client {
             workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
             mods {
-                examplemod {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        server {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-            mods {
-                examplemod {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        data {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/')
-            mods {
-                examplemod {
+                blockstatechanger {
                     source sourceSets.main
                 }
             }
@@ -56,8 +28,12 @@ minecraft {
     }
 }
 
+repositories {
+    mavenLocal()
+}
+
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.5-36.1.10'
+    minecraft 'net.minecraftforge:forge:1.19.2-43.1.1'
 }
 
 jar {
@@ -74,6 +50,21 @@ jar {
     }
 }
 
-task deobfJar(dependsOn: jar) {
-    version += "-deobf";
+jar.finalizedBy('reobfJar')
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
+    }
+    repositories {
+        maven {
+            url "file:///X:/localmaven/mcmods"
+        }
+    }
 }
